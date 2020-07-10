@@ -1,18 +1,29 @@
-# USgrid <a href='https://ramikrispin.github.io/USgrid/'><img src='man/figures/draftbadge.png' width="250" height="300" align="right"  /></a>
+# danparcorpR <a href='https://ramikrispin.github.io/USgrid/'><img src='man/figures/draftbadge.png' width="250" height="300" align="right"  /></a>
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/USgrid)](https://cran.r-project.org/package=USgrid)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-The USgrid R package provides a set of high frequency (hourly) time-series datasets, describing the demand and generation of electricity in the US (lower-48 states, excluding Alaska and Hawaii). That includes the following series:
+The danparcorpR package, abbreviation for (The Danish Parliament Corpus in R) is package provides the *clean* and *tidy* data for each year of Parlimant running from October to the following June. For each working year, (2009,2010,2011,2012,2013,2014,205,2016) the package provides the table containing the following columns:
 
-* `US_elec`  - the total hourly demand and supply (generation) for electricity in the US since July 2015
+* MeetingId  - the total hourly demand and supply (generation) for electricity in the US since July 2015
 
-* `US_source` - the US net generation of electricity by energy source (natural gas, coal, solar, etc.) since July 2018
+* Mødenummer  - the US net generation of electricity by energy source (natural gas, coal, solar, etc.) since July 2018
 
-* `Cal_elec` - The California subregion hourly demand by operator since July 2018
+* Sagstype   - The California subregion hourly demand by operator since July 2018
+
+* Starttid
+
+* Sluttid
+
+* Navn
+
+* Parti
+
+* Rolle
+
+* Tekst
 
 All datasets are in [tsibble](https://tsibble.tidyverts.org/index.html) format
 
