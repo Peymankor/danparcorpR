@@ -1,0 +1,24 @@
+Package: danparcorpR
+Type: Package
+Title: Tidy Format of the The Danish Parliament Corpus 2009 - 2017, v1 (2009-2017)
+Version: 0.1.0
+Authors@R: person("Peyman", "Kor", email = "kor.peyman@gmail.com",
+                  role = c("aut", "cre"))
+Maintainer: Peyman Kor <rami.krispin@gmail.com>
+Description: This package provides the parsed data of the Danish Parliamen Corpus, 
+    where the essential data are provided in the tidy data format.
+License: CC0
+LazyData: true
+Imports:
+  XML,
+  xml2,
+  tidyverse,
+  lubridate
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+Depends: 
+    R (>= 2.10)
+Encoding: UTF-8
+RoxygenNote: 7.1.1
