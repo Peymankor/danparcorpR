@@ -55,4 +55,17 @@ library(tidyverse)
 
 data(corp_2009)
 
+speech_by_party <- corpus_2009 %>% 
+  group_by(Parti)  %>% 
+  summarise(sum_speech = n()) %>% 
+  filter(Parti != NA | Parti != "")
+  
+  ggplot(speech_by_party, aes(reorder(Parti, sum_speech), sum_speech)) +
+  geom_bar(stat="identity", color="white", fill="blue") +
+  xlab("Party Name") +
+  ylab("Numbers of Speech") +
+  ggtitle("Party Vs. Number of Speech - 2009/2010 Parlimant Year") +
+  coord_flip()  
 ```
+
+<img src="man/figures/party_vs_number_of_speech.png" width="100%" />
