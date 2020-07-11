@@ -38,17 +38,11 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 Installation
 ------------
 
-Install the stable version from [CRAN](https://CRAN.R-project.org/package=USgrid):
-
-``` r
-install.packages("USgrid")
-```
-
-or install the development version from [Github](https://github.com/RamiKrispin/USgrid):
+Install the development version from [Github](https://github.com/Peymankor/danparcorpR):
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("RamiKrispin/USgrid")
+remotes::install_github("Peymankor/danparcorpR")
 ```
 
 ## Examples
@@ -56,49 +50,9 @@ remotes::install_github("RamiKrispin/USgrid")
 The hourly demand and generation (supply) of electricty in the US:
 
 ``` r
-library(USgrid)
-library(plotly)
+library(danparcorpR)
+library(tidyverse)
 
-data(US_elec)
+data(corp_2009)
 
-plot_ly(data = US_elec,
-        x = ~ date_time,
-        y = ~ series,
-        color = ~ type,
-        colors = c("#66C2A5","#8DA0CB"),
-        type = "scatter",
-        mode = "lines") %>%
-        layout(title = "US Electricity Demand vs. Supply (Hourly)",
-               yaxis = list(title = "Mwh"),
-               xaxis = list(title = "Source: US Energy Information Administration (Dec 2019)"))
 ```
-<img src="man/figures/US_elec.png" width="100%" />
-
-The hourly generation (supply) of electricty in the US by source:
-``` r
-plot_ly(data = US_source,
-        x = ~ date_time,
-        y = ~ series,
-        color = ~ source,
-        type = "scatter",
-        mode = "lines") %>%
-  layout(title = "US Electricity Generation by Energy Source",
-         yaxis = list(title = "Mwh"),
-         xaxis = list(title = "Source: US Energy Information Administration (Dec 2019)"))
-```
-<img src="man/figures/US_source.png" width="100%" />
-
-The California subregion hourly demand by operator
-
-``` r
-plot_ly(data = Cal_elec,
-        x = ~ date_time,
-        y = ~ series,
-        color = ~ operator,
-        type = "scatter",
-        mode = "lines") %>%
-  layout(title = "California Hourly Demand by Operator",
-         yaxis = list(title = "Mwh"),
-         xaxis = list(title = "Source: US Energy Information Administration (Dec 2019)"))
-```
-<img src="man/figures/Cal_elec.png" width="100%" />
