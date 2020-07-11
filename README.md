@@ -34,7 +34,7 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 
 All datasets are in [tsibble](https://tsibble.tidyverts.org/index.html) format
 
-**Source:** [US Energy Information Administration](https://www.eia.gov/), Dec 2019
+**Source:** [The Danish Parliament Corpus 2009 - 2017, v1](https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/8)
 
 Installation
 ------------
