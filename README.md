@@ -5,25 +5,32 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
-The danparcorpR package, abbreviation for (The Danish Parliament Corpus in R) is package provides the *clean* and *tidy* data for each year of Parlimant running from October to the following June. For each working year, (2009,2010,2011,2012,2013,2014,205,2016) the package provides the table containing the following columns:
+The danparcorpR package, abbreviation for (The Danish Parliament Corpus in R) is package provides the *clean* and *tidy* data of Hansards (transcripts of parliamentary speeches) each year of Parlimant (Folketinget) running from October to the following June. 
 
-* MeetingId  - the total hourly demand and supply (generation) for electricity in the US since July 2015
+The whole package consisting of app. 41 million running words and 182.200 speeches. However, it must be mentioned that transcriptions are “corrected” by the Parliament transcription responsible so they are near to written language, e.g. they do not contain some typical speech features such as hesitations, self corrections and pauses, comprising filled pauses, and punctuation marks are added.
 
-* Mødenummer  - the US net generation of electricity by energy source (natural gas, coal, solar, etc.) since July 2018
 
-* Sagstype   - The California subregion hourly demand by operator since July 2018
+For each working year, (2009,2010,2011,2012,2013,2014,205,2016) the package provides *one* table containing the 9 columns:
 
-* Starttid
+Note: Each row is one *Speech* and columns provides the *feature* and specification of that row. The columns are:
 
-* Sluttid
+* MeetingId     -       The ID of the parlimnat meeting
 
-* Navn
+* Mødenummer    -       The number of the meeting
 
-* Parti
+* Sagstype      -       The type of the speech
 
-* Rolle
+* Starttid      -       The start time of the speech (in y-m-d h:m:s format)    
 
-* Tekst
+* Sluttid       -       The end time of the speech (in y-m-d h:m:s format)
+
+* Navn*         -       The name of the speacker
+
+* Parti         -       The party name of speaker
+
+* Rolle         -       The role (position) of the speaker
+
+* Tekst         -       The transcribt of speech by the speaker
 
 All datasets are in [tsibble](https://tsibble.tidyverts.org/index.html) format
 
