@@ -20,9 +20,9 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 
 * Sagstype      -       The type of the speech
 
-* Starttid      -       The start time of the speech (in y-m-d h:m:s format)    
+* Starttid      -       The start time of the speech (in y-m-d h-m-s format)    
 
-* Sluttid       -       The end time of the speech (in y-m-d h:m:s format)
+* Sluttid       -       The end time of the speech (in y-m-d h-m-s format)
 
 * Navn*         -       The name of the speacker
 
@@ -32,7 +32,6 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 
 * Tekst         -       The transcribt of speech by the speaker
 
-All datasets are in [tsibble](https://tsibble.tidyverts.org/index.html) format
 
 **Source:** [The Danish Parliament Corpus 2009 - 2017, v1](https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/8)
 
