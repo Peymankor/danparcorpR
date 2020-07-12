@@ -1,4 +1,4 @@
-# danparcorpR <a href='https://ramikrispin.github.io/USgrid/'><img src='man/figures/draftbadge.png' width="150" height="200" align="right"  /></a>
+# danparcorpR <a href='https://ramikrispin.github.io/USgrid/'><img src='man/figures/draftbadge.png' width="150" height="200" align="center"  /></a>
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -76,7 +76,8 @@ speech_by_party <- corpus_2009 %>%
 ```
 library(wordcloud)
 library(tidytext)
-stop_word_danish <- read_delim("https://gist.githubusercontent.com/berteltorp/0cf8a0c7afea7f25ed754f24cfc2467b/raw/305d8e3930cc419e909d49d4b489c9773f75b2d6/stopord.txt", delim = " ", col_names = "word")
+stop_word_danish <- read_delim("https://gist.githubusercontent.com/berteltorp/0cf8a0c7afea7f25ed754f24cfc2467b/raw/305d8e3930cc419e909d49d4b489c9773f75b2d6/stopord.txt"
+           , delim = " ", col_names = "word")
 
 stop_word_danish_format <- tibble(stop_word_danish, lexicon="SMART")
 
