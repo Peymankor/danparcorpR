@@ -45,7 +45,7 @@ Install the development version from [Github](https://github.com/Peymankor/danpa
 remotes::install_github("Peymankor/danparcorpR")
 ```
 
-## Examples
+## Examples 
 
 The hourly demand and generation (supply) of electricty in the US:
 
@@ -72,6 +72,9 @@ speech_by_party <- corpus_2009 %>%
 
 
 
+## Examples 
+
+The hourly demand and generation (supply) of electricty in the US:
 
 ```
 library(wordcloud)
