@@ -1,4 +1,4 @@
-# danparcorpR <a href='https://ramikrispin.github.io/USgrid/'><img src='man/figures/draftbadge.png' width="300" height="400" align="center"  /></a>
+# danparcorpR <a href='https://ramikrispin.github.io/USgrid/'><img src='man/figures/draftbadge.png' width="300" height="400" align="right"  /></a>
 
 <!-- badges: start -->
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
