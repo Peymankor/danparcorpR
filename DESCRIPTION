@@ -7,7 +7,9 @@ Authors@R: person("Peyman", "Kor", email = "kor.peyman@gmail.com",
 Maintainer: Peyman Kor <kor.peyman@gmail.com>
 Description: This package provides the parsed data of the Danish Parliamen Corpus, 
     where the essential data are provided in the tidy data format.
-License: CC0
+License: MIT 
+URL: https://github.com/Peymankor/danparcorpR
+BugReports: https://github.com/Peymankor/danparcorpR/issues
 LazyData: true
 Suggests: 
     XML,
