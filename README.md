@@ -69,3 +69,30 @@ speech_by_party <- corpus_2009 %>%
 ```
 
 <img src="man/figures/party_vs_number_of_speech.png" width="100%" />
+
+
+
+
+```
+library(wordcloud)
+library(tidytext)
+stop_word_danish <- read_delim("https://gist.githubusercontent.com/berteltorp/0cf8a0c7afea7f25ed754f24cfc2467b/raw/305d8e3930cc419e909d49d4b489c9773f75b2d6/stopord.txt", delim = " ", col_names = "word")
+
+stop_word_danish_format <- tibble(stop_word_danish, lexicon="SMART")
+
+corpus_2010_DF <- corpus_2010 %>% filter(Parti == "DF")
+
+corpus_2010_DF_tidy <- corpus_2010_DF %>% as_tibble() %>%
+  unnest_tokens(word, Tekst)
+
+par(bg="black")
+corpus_2010_DF_tidy %>%
+  anti_join(stop_word_danish_format) %>%
+  count(word) %>%
+  with(wordcloud(word, n, scale = c(4,0.5) ,
+                 max.words = 50, random.order=FALSE, rot.per=0.35,
+                 colors=brewer.pal(8, "Dark2")))
+
+```
+
+<img src="man/figures/wordcloud1.png" width="100%" />
