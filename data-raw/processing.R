@@ -223,3 +223,45 @@ corpus_2016 <- table_from_xml_doc("data-raw/EdixiXMLExport_20161.xml") %>%
 usethis::use_data(corpus_2009,corpus_2010,corpus_2011,corpus_2012,
                   corpus_2013, corpus_2014,
                   corpus_2015, corpus_2016)
+
+
+# Example #1 in ReadME
+
+devtools::install_github("tidyverse/tidyverse")
+library(tidyverse)
+
+spech_by_parti <- corpus_2009 %>%
+  group_by(Parti)  %>%
+  summarise(sum_speech = n()) %>%
+  filter(Parti != NA | Parti != "")
+
+
+ggplot(spech_by_parti, aes(reorder(Parti, sum_speech), sum_speech)) +
+  geom_bar(stat="identity", color="white", fill="blue") +
+  xlab("Party Name") +
+  ylab("Numbers of Speech") +
+  ggtitle("Party Vs. Number of Speech - 2009/2010 Parliament Year") +
+  coord_flip()
+
+
+## Example #2
+
+library(wordcloud)
+library(tidytext)
+stop_word_danish <- read_delim("https://gist.githubusercontent.com/berteltorp/0cf8a0c7afea7f25ed754f24cfc2467b/raw/305d8e3930cc419e909d49d4b489c9773f75b2d6/stopord.txt", delim = " ", col_names = "word")
+
+stop_word_danish_format <- tibble(stop_word_danish, lexicon="SMART")
+
+corpus_2010_DF <- corpus_2010 %>% filter(Parti == "DF")
+
+corpus_2010_DF_tidy <- corpus_2010_DF %>% as_tibble() %>%
+  unnest_tokens(word, Tekst)
+
+par(bg="black")
+corpus_2010_DF_tidy %>%
+  anti_join(stop_word_danish_format) %>%
+  count(word) %>%
+  with(wordcloud(word, n, scale = c(4,0.5) ,
+                 max.words = 50, random.order=FALSE, rot.per=0.35,
+                 colors=brewer.pal(8, "Dark2")))
+
