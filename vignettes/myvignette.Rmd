@@ -1,5 +1,5 @@
 ---
-title: "myvignette"
+title: "Data Privacy Awarness in Discussion at the Danish Folketing"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{myvignette}
@@ -14,6 +14,119 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(danparcorpR)
+So in this blog I going to explore and possible answer these two questions:
+
+* Is there any increase in sentiment of the mebers of the Danish parlimanet on the topics related to
+*datatilsynet*,*persondata*,*persondataloven*,*databeskyttelse* in the parlimant discussion?
+
+* Then, which parties are more involved in the parlimant about the above topics?
+
+So, let's get started:
+
+## Installing the package danparcorpR
+
+First, we need to install the *danparcorpR* pacakge. To install this package first you need to install the following package:
+
+
+```{r}
+#install.packages("remotes")  # install the package
+library(remotes)
+```
+
+The above package makes that you can install package from the github, which is the case of the *danparcorpR* package, at the momoment. So having the *remotes* package, you can install *dancoprR* package as the follows:
+
+Note: Since it contains a bit of large text data inside it, installation may take a few minutes (less than 5 min) so just be patient until the below installation is completed.
+
+
+```{r}
+#remotes::install_github("Peymankor/danparcorpR")
+```
+
+
+Now, the package should have been installed and it is ready to use.
+
+## Libraries
+
+In our analysis in this blog, we will need the following four packages. I wrote small comments in front of them what they do,  
+
+```{r}
+library(danparcorpR)        # main library of the data
+library(tidytext)           # the library for text processing
+library(lubridate)          # library to deal with date data
+library(tidyverse)          # library for data processing and visulization
+```
+
+
+## data Processing
+
+Now, since in this specific analysis we are considering to analyze the data of whole 8 years (generally I do not recommend this one since data becomes so large on the memory better use the subset of the data as much as possible, like corpus_2010)
+
+Here, I am joining the tables towgether,
+
+```{r}
+all_8_year <- rbind(corpus_2009, corpus_2010, corpus_2011,
+            corpus_2012, corpus_2013,corpus_2014,
+            corpus_2015, corpus_2016)
+```
+
+Here, we are converting the data to the *tidy* data. It means, each word of the tekst column will be one row, also we are removing the Parti with *NA* (which as I wrote in github Readme are the foormand or Minister):
+
+```{r}
+corpus_tidy_text <- all_8_year %>% 
+  select(Starttid, Parti, Tekst) %>%
+  drop_na(Parti) %>%
+  filter(Parti != "") %>% 
+  as_tibble() %>%
+  unnest_tokens(word, Tekst)
+```
+
+So, after doing this, what we do is group the data with half_year, word and Parti and count them,
+using the *tally* function:
+
+```{r}
+tidy_text_count <- corpus_tidy_text %>% 
+  group_by(half_year=round_date(Starttid, "halfyear"), word, Parti) %>% 
+  tally()
+```
+
+## Usage of the Data Privacy Related Words in whole Parlimant, 2009-2017
+
+So in the below, we are selecting the words we want to see how much they have been used over year. I selected these words as the represntative the Data Privacy, but it could be chnaged to any other combination:
+
+*datatilsynet*,*persondata*,*data*,*persondataloven*,
+*databeskyttelse*,*datasikkerhed*,*datasikkerheden*
+
+```{r}
+whole_parlimanet <- tidy_text_count %>%
+  filter(word %in% c("datatilsynet","persondata","data",
+                     "persondataloven","databeskyttelse",
+                     "datasikkerhed", "datasikkerheden")) %>% 
+  group_by(half_year) %>%   
+  summarise(sum_use=sum(n))
+```  
+The below plot shows number of the times the above 7 words has been mentioned in parlimante discussion, every half the year:
+
+```{r}
+ggplot(whole_parlimanet, aes(half_year, sum_use)) +
+  geom_point() +
+  geom_smooth() 
+```
+
+## Usage of the Data Privacy Related Words in Parlimant per parti, 2009-2017
+
+```{r}
+per_parti <- tidy_text_count %>%
+  filter(word %in% c("datatilsynet","persondata","data",
+                     "persondataloven","databeskyttelse",
+                     "datasikkerhed", "datasikkerheden")) %>% 
+  group_by(half_year,Parti) %>%   
+  summarise(sum_use=sum(n))
+```
+
+
+```{r}
+ggplot(per_parti, aes(half_year, sum_use)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ Parti) 
 ```
