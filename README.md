@@ -35,6 +35,14 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 
 **Source:** [The Danish Parliament Corpus 2009 - 2017, v1](https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/8)
 
+**Important Note**
+
+In the Navn column you may see the empyt cell (""). These empty cells are mostly when the Rolle column is *formand* or *minister*, so the original data included the empty cell.
+
+In the Parti column, the original data removed party section when the Rolle is *formand* or *minister* but in our case, we need the data for every cell. In this case, the "NA" was replaced.
+
+So in summary, the empty cell ("") is when the orginal data had "" while "NA" was replaced by the package author in the case original data removed the parti name for speaker.
+
 ## Installation
 
 Install the development version from [Github](https://github.com/Peymankor/danparcorpR):
