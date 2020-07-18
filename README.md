@@ -35,7 +35,7 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 
 **Source:** [The Danish Parliament Corpus 2009 - 2017, v1](https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/8)
 
-Installation
+## Installation
 ------------
 
 Install the development version from [Github](https://github.com/Peymankor/danparcorpR):
