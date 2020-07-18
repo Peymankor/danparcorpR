@@ -87,7 +87,7 @@ speech_by_party <- corpus_2009 %>%
 
 The hourly demand and generation (supply) of electricty in the US:
 
-```
+``` r
 # load the packages
 library(danparcorpR)
 library(wordcloud)
