@@ -24,9 +24,9 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 
 * Sluttid       -       The end time of the speech (in y-m-d h-m-s format)
 
-* Navn*         -       The name of the speaker
+* Navn\*         -       The name of the speaker
 
-* Parti         -       The party name of speaker
+* Parti\**         -       The party name of speaker
 
 * Rolle         -       The role (position) of the speaker
 
@@ -36,7 +36,6 @@ Note: Each row is one *Speech* and columns provides the *feature* and specificat
 **Source:** [The Danish Parliament Corpus 2009 - 2017, v1](https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/8)
 
 ## Installation
-------------
 
 Install the development version from [Github](https://github.com/Peymankor/danparcorpR):
 
