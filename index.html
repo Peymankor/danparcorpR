@@ -55,7 +55,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/myvignette.html">myvignette</a>
+      <a href="articles/myvignette.html">Is there any increase in discussion related to data privacy in the danish parliament?</a>
     </li>
   </ul>
 </li>
@@ -81,11 +81,11 @@
   <div class="contents col-md-9">
 <div id="danparcorpr-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#danparcorpr-" class="anchor"></a>danparcorpR <a href="https://ramikrispin.github.io/USgrid/"><img src="reference/figures/draftbadge.png" width="300" height="400" align="right"></a>
+<a href="#danparcorpr-" class="anchor"></a>danparcorpR <a href="https://peymankor.github.io/danparcorpR/"><img src="reference/figures/draftbadge.png" width="300" height="400" align="right"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>The danparcorpR package, abbreviation for (The Danish Parliament Corpus in R) is package provides the <em>clean</em> and <em>tidy</em> data of Hansards (transcripts of parliamentary speeches) each year of Parlimant (Folketinget) running from October to the following June.</p>
+<p>The danparcorpR package, abbreviation for (The Danish Parliament Corpus in R) is package provides the <em>clean</em> and <em>tidy</em> data of Hansards (transcripts of parliamentary speeches) each year of Parliament (Folketinget) running from October to the following June.</p>
 <p>The whole package consisting of app. 41 million running words and 182.200 speeches. However, it must be mentioned that transcriptions are “corrected” by the Parliament transcription responsible so they are near to written language, e.g. they do not contain some typical speech features such as hesitations, self corrections and pauses, comprising filled pauses, and punctuation marks are added.</p>
 <p>For each working year, (2009,2010,2011,2012,2013,2014,205,2016) the package provides <em>one</em> table containing the 9 columns:</p>
 <p>Note: Each row is one <em>Speech</em> and columns provides the <em>feature</em> and specification of that row. The columns are:</p>
@@ -95,69 +95,85 @@
 <li><p>Sagstype - The type of the speech</p></li>
 <li><p>Starttid - The start time of the speech (in y-m-d h-m-s format)</p></li>
 <li><p>Sluttid - The end time of the speech (in y-m-d h-m-s format)</p></li>
-<li><p>Navn* - The name of the speacker</p></li>
-<li><p>Parti - The party name of speaker</p></li>
+<li><p>Navn* - The name of the speaker</p></li>
+<li><p>Parti** - The party name of speaker</p></li>
 <li><p>Rolle - The role (position) of the speaker</p></li>
-<li><p>Tekst - The transcribt of speech by the speaker</p></li>
+<li><p>Tekst - The transcript of speech by the speaker</p></li>
 </ul>
 <p><strong>Source:</strong> <a href="https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/8">The Danish Parliament Corpus 2009 - 2017, v1</a></p>
+<p><strong>Important Note</strong></p>
+<p>In the Navn column you may see the empyt cell (""). These empty cells are mostly when the Rolle column is <em>formand</em> or <em>minister</em>, so the original data included the empty cell.</p>
+<p>In the Parti column, the original data removed party section when the Rolle is <em>formand</em> or <em>minister</em> but in our case, we need the data for every cell. In this case, the “NA” was replaced.</p>
+<p>So in summary, the empty cell ("“) is when the orginal data had”" while “NA” was replaced by the package author in the case original data removed the parti name for speaker.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the development version from <a href="https://github.com/Peymankor/danparcorpR">Github</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co"># install.packages("remotes")</span>
-<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("remotes")</span>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)</pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
-<p>The hourly demand and generation (supply) of electricty in the US:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/Peymankor/danparcorpR">danparcorpR</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span>)
+<p>The distribution of number of speech for parties in the 2009 Parlimantary year.</p>
+<div class="sourceCode" id="cb2"><pre class="r">
+<span class="co"># install the package from github</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)
+<span class="co">#</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">corp_2009</span>)
+<span class="co"># load the library and tidyverse library</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">danparcorpR</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<span class="co">#</span>
 
-<span class="kw">speech_by_party</span> <span class="op">&lt;-</span> <span class="kw">corpus_2009</span> <span class="op">%&gt;%</span> 
-  <span class="fu">group_by</span>(<span class="kw">Parti</span>)  <span class="op">%&gt;%</span> 
-  <span class="fu">summarise</span>(sum_speech = <span class="fu">n</span>()) <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">Parti</span> != <span class="fl">NA</span> <span class="op">|</span> <span class="kw">Parti</span> != <span class="st">""</span>)
-  
-  <span class="fu">ggplot</span>(<span class="kw">speech_by_party</span>, <span class="fu">aes</span>(<span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span>(<span class="kw">Parti</span>, <span class="kw">sum_speech</span>), <span class="kw">sum_speech</span>)) <span class="op">+</span>
-  <span class="fu">geom_bar</span>(stat=<span class="st">"identity"</span>, color=<span class="st">"white"</span>, fill=<span class="st">"blue"</span>) <span class="op">+</span>
-  <span class="fu">xlab</span>(<span class="st">"Party Name"</span>) <span class="op">+</span>
-  <span class="fu">ylab</span>(<span class="st">"Numbers of Speech"</span>) <span class="op">+</span>
-  <span class="fu">ggtitle</span>(<span class="st">"Party Vs. Number of Speech - 2009/2010 Parlimant Year"</span>) <span class="op">+</span>
-  <span class="fu">coord_flip</span>()  
-</pre></div>
+<span class="co"># load the 2009 data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">corp_2009</span>)
+
+<span class="co"># groub the speech by parti and then count</span>
+<span class="no">speech_by_party</span> <span class="kw">&lt;-</span> <span class="no">corpus_2009</span> <span class="kw">%&gt;%</span>
+  <span class="fu">group_by</span>(<span class="no">Parti</span>)  <span class="kw">%&gt;%</span>
+  <span class="fu">summarise</span>(<span class="kw">sum_speech</span> <span class="kw">=</span> <span class="fu">n</span>()) <span class="kw">%&gt;%</span>
+  <span class="fu">drop_na</span>() <span class="kw">%&gt;%</span>           <span class="co"># remove the part "NA" (which are whether formand or minister)</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">Parti</span> <span class="kw">!=</span> <span class="st">""</span>)
+
+  <span class="fu">ggplot</span>(<span class="no">speech_by_party</span>, <span class="fu">aes</span>(<span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span>(<span class="no">Parti</span>, <span class="no">sum_speech</span>), <span class="no">sum_speech</span>)) +
+  <span class="fu">geom_bar</span>(<span class="kw">stat</span><span class="kw">=</span><span class="st">"identity"</span>, <span class="kw">color</span><span class="kw">=</span><span class="st">"white"</span>, <span class="kw">fill</span><span class="kw">=</span><span class="st">"blue"</span>) +
+  <span class="fu">xlab</span>(<span class="st">"Party Name"</span>) +
+  <span class="fu">ylab</span>(<span class="st">"Numbers of Speech"</span>) +
+  <span class="fu">ggtitle</span>(<span class="st">"Party Vs. Number of Speech - 2009/2010 Parlimant Year"</span>) +
+  <span class="fu">coord_flip</span>()</pre></div>
 <p><img src="reference/figures/party_vs_number_of_speech.png" width="100%"></p>
 </div>
 <div id="examples-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples-1" class="anchor"></a>Examples</h2>
 <p>The hourly demand and generation (supply) of electricty in the US:</p>
-<pre><code>library(wordcloud)
-library(tidytext)
-stop_word_danish &lt;- read_delim("https://gist.githubusercontent.com/berteltorp/0cf8a0c7afea7f25ed754f24cfc2467b/raw/305d8e3930cc419e909d49d4b489c9773f75b2d6/stopord.txt"
-           , delim = " ", col_names = "word")
+<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># load the packages</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">danparcorpR</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">wordcloud</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidytext</span>)
+<span class="co">#</span>
 
-stop_word_danish_format &lt;- tibble(stop_word_danish, lexicon="SMART")
+<span class="co"># load the danish stop words</span>
+<span class="no">stop_word_danish</span> <span class="kw">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"https://gist.githubusercontent.com/berteltorp/0cf8a0c7afea7f25ed754f24cfc2467b/raw/305d8e3930cc419e909d49d4b489c9773f75b2d6/stopord.txt"</span>
+           , <span class="kw">delim</span> <span class="kw">=</span> <span class="st">" "</span>, <span class="kw">col_names</span> <span class="kw">=</span> <span class="st">"word"</span>)
 
-corpus_2010_DF &lt;- corpus_2010 %&gt;% filter(Parti == "DF")
+<span class="co"># form the danish stop word as data frame</span>
+<span class="no">stop_word_danish_format</span> <span class="kw">&lt;-</span> <span class="fu">tibble</span>(<span class="no">stop_word_danish</span>, <span class="kw">lexicon</span><span class="kw">=</span><span class="st">"SMART"</span>)
 
-corpus_2010_DF_tidy &lt;- corpus_2010_DF %&gt;% as_tibble() %&gt;%
-  unnest_tokens(word, Tekst)
+<span class="co"># Select the DF party </span>
+<span class="no">corpus_2010_DF</span> <span class="kw">&lt;-</span> <span class="no">corpus_2010</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">Parti</span> <span class="kw">==</span> <span class="st">"DF"</span>)
+<span class="no">corpus_2010_DF_tidy</span> <span class="kw">&lt;-</span> <span class="no">corpus_2010_DF</span> <span class="kw">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span>(<span class="no">word</span>, <span class="no">Tekst</span>)
 
-par(bg="black")
-corpus_2010_DF_tidy %&gt;%
-  anti_join(stop_word_danish_format) %&gt;%
-  count(word) %&gt;%
-  with(wordcloud(word, n, scale = c(4,0.5) ,
-                 max.words = 50, random.order=FALSE, rot.per=0.35,
-                 colors=brewer.pal(8, "Dark2")))
-</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">bg</span><span class="kw">=</span><span class="st">"black"</span>)
+<span class="no">corpus_2010_DF_tidy</span> <span class="kw">%&gt;%</span>
+  <span class="fu">anti_join</span>(<span class="no">stop_word_danish_format</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">count</span>(<span class="no">word</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/wordcloud/man/wordcloud.html">wordcloud</a></span>(<span class="no">word</span>, <span class="no">n</span>, <span class="kw">scale</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>,<span class="fl">0.5</span>) ,
+                 <span class="kw">max.words</span> <span class="kw">=</span> <span class="fl">50</span>, <span class="kw">random.order</span><span class="kw">=</span><span class="fl">FALSE</span>, <span class="kw">rot.per</span><span class="kw">=</span><span class="fl">0.35</span>,
+                 <span class="kw">colors</span><span class="kw">=</span><span class="fu">brewer.pal</span>(<span class="fl">8</span>, <span class="st">"Dark2"</span>)))</pre></div>
 <p><img src="reference/figures/wordcloud1.png" width="100%"></p>
 </div>
 </div>
@@ -203,7 +219,7 @@ corpus_2010_DF_tidy %&gt;%
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
