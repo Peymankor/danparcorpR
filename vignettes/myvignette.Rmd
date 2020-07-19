@@ -1,6 +1,11 @@
 ---
-title: "Data Privacy Awarness in Discussion at the Danish Folketing"
-output: rmarkdown::html_vignette
+title: "Is there any increase in discussion related to data privacy in the danish parliament?"
+author: "Peyman Kor"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
 vignette: >
   %\VignetteIndexEntry{myvignette}
   %\VignetteEngine{knitr::rmarkdown}
@@ -10,46 +15,50 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width=10, 
+  fig.height=8
 )
 ```
 
+## Introduction
+
 So in this blog I going to explore and possible answer these two questions:
 
-* Is there any increase in sentiment of the mebers of the Danish parlimanet on the topics related to
-*datatilsynet*,*persondata*,*persondataloven*,*databeskyttelse* in the parlimant discussion?
+* Is there any increase in sentiment of the members of the Danish parliament on the topics related to
+*datatilsynet*,*persondata*,*persondataloven*,*databeskyttelse* in the parliament discussion?
 
-* Then, which parties are more involved in the parlimant about the above topics?
+* Then, which parties are more involved in the parliament about the above topics?
 
 So, let's get started:
 
-## Installing the package danparcorpR
+## Installing the danparcorpR package
 
-First, we need to install the *danparcorpR* pacakge. To install this package first you need to install the following package:
-
-
-```{r}
-#install.packages("remotes")  # install the package
-library(remotes)
-```
-
-The above package makes that you can install package from the github, which is the case of the *danparcorpR* package, at the momoment. So having the *remotes* package, you can install *dancoprR* package as the follows:
-
-Note: Since it contains a bit of large text data inside it, installation may take a few minutes (less than 5 min) so just be patient until the below installation is completed.
-
+First, we need to install the *danparcorpR* pacakge. To install this package first you need to install the **remotes** package. So first run this:
 
 ```{r}
-#remotes::install_github("Peymankor/danparcorpR")
+if(!require(remotes)){
+    install.packages("remotes")
+    library(remotes)
+}
 ```
 
 
+The above package makes that you can install package from the github, which is the case of the *danparcorpR* package, at the moment. So having the *remotes* package, you can install *dancoprR* package as the follows:
+
+Note: Since it contains a bit of large text data inside it, installation may take a few minutes (less than 5 min usually) so just be patient until the below installation is completed :)
+
+
+```{r eval=FALSE}
+remotes::install_github("Peymankor/danparcorpR")
+```
 Now, the package should have been installed and it is ready to use.
 
 ## Libraries
 
 In our analysis in this blog, we will need the following four packages. I wrote small comments in front of them what they do,  
 
-```{r}
+```{r, message=FALSE, error=FALSE}
 library(danparcorpR)        # main library of the data
 library(tidytext)           # the library for text processing
 library(lubridate)          # library to deal with date data
@@ -57,11 +66,11 @@ library(tidyverse)          # library for data processing and visulization
 ```
 
 
-## data Processing
+## Data Processing
 
-Now, since in this specific analysis we are considering to analyze the data of whole 8 years (generally I do not recommend this one since data becomes so large on the memory better use the subset of the data as much as possible, like corpus_2010)
+Now, since in this specific analysis we are considering to analyze the data of whole 8 years (generally I do not recommend this one since data becomes so large on the memory, better use the subset of the data as much as possible, like corpus_2010)
 
-Here, I am joining the tables towgether,
+Here, I am joining the tables together,
 
 ```{r}
 all_8_year <- rbind(corpus_2009, corpus_2010, corpus_2011,
@@ -69,7 +78,7 @@ all_8_year <- rbind(corpus_2009, corpus_2010, corpus_2011,
             corpus_2015, corpus_2016)
 ```
 
-Here, we are converting the data to the *tidy* data. It means, each word of the tekst column will be one row, also we are removing the Parti with *NA* (which as I wrote in github Readme are the foormand or Minister):
+Here, we are converting the data to the *tidy* data. It means, each word of the tekst column will be one row, also we are removing the Parti with *NA* (which as I wrote in github Readme are the formand or Minister):
 
 ```{r}
 corpus_tidy_text <- all_8_year %>% 
@@ -80,7 +89,7 @@ corpus_tidy_text <- all_8_year %>%
   unnest_tokens(word, Tekst)
 ```
 
-So, after doing this, what we do is group the data with half_year, word and Parti and count them,
+So, after doing this, what we do is group the data with (half_year, word and Parti) and count them,
 using the *tally* function:
 
 ```{r}
@@ -91,7 +100,7 @@ tidy_text_count <- corpus_tidy_text %>%
 
 ## Usage of the Data Privacy Related Words in whole Parlimant, 2009-2017
 
-So in the below, we are selecting the words we want to see how much they have been used over year. I selected these words as the represntative the Data Privacy, but it could be chnaged to any other combination:
+So in the below, we are selecting the words we want to see how much they have been used over years. I I selected these words as the representative the **Data Privacy** topics, but it could be changed to any other combination:
 
 *datatilsynet*,*persondata*,*data*,*persondataloven*,
 *databeskyttelse*,*datasikkerhed*,*datasikkerheden*
@@ -104,15 +113,19 @@ whole_parlimanet <- tidy_text_count %>%
   group_by(half_year) %>%   
   summarise(sum_use=sum(n))
 ```  
-The below plot shows number of the times the above 7 words has been mentioned in parlimante discussion, every half the year:
+The below plot shows number of the times the above 7 words has been mentioned in parlimant discussion, every half the year:
 
-```{r}
+```{r, fig.align="center"}
 ggplot(whole_parlimanet, aes(half_year, sum_use)) +
-  geom_point() +
-  geom_smooth() 
+  geom_point(size=5) +
+  geom_smooth() +
+  labs(x="Time", y = "Number of Use") 
+
 ```
 
 ## Usage of the Data Privacy Related Words in Parlimant per parti, 2009-2017
+
+Now, here again we select the relevant words for the analysis, but this time we group by (half_year and parti) to see number of usage the words per each parti per half year period.
 
 ```{r}
 per_parti <- tidy_text_count %>%
@@ -124,9 +137,11 @@ per_parti <- tidy_text_count %>%
 ```
 
 
-```{r}
+```{r, fig.align='center'}
 ggplot(per_parti, aes(half_year, sum_use)) +
-  geom_line() +
-  geom_point() +
-  facet_wrap(~ Parti) 
+  geom_line(color="darkblue") +
+  geom_point(color="darkblue", size=3) +
+  facet_wrap(~ Parti) +
+  labs(x="Time", y = "Number of Use") + 
+  theme_dark()
 ```
