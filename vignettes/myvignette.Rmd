@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 So in this blog I going to explore and possible answer these two questions:
 
 * Is there any increase in sentiment of the members of the Danish parliament on the topics related to
-**datatilsynet**,**persondata**,**persondataloven**,**databeskyttelse** in the parliament discussion?
+**datatilsynet**, **persondata**, **persondataloven**, **databeskyttelse** in the parliament discussion?
 
 * Then, which parties are more involved in the parliament about the above topics?
 
@@ -102,8 +102,7 @@ tidy_text_count <- corpus_tidy_text %>%
 
 So in the below, we are selecting the words we want to see how much they have been used over years. I I selected these words as the representative the **Data Privacy** topics, but it could be changed to any other combination:
 
-**datatilsynet**,**persondata**,**data**,**persondataloven**,
-**databeskyttelse**,**datasikkerhed**,**datasikkerheden**
+**datatilsynet**, **persondata**, **data**, **persondataloven**, **databeskyttelse**, **datasikkerhed**, **datasikkerheden**
 
 ```{r}
 whole_parlimanet <- tidy_text_count %>%
