@@ -76,13 +76,13 @@
 
       
 
-      </header><script src="myvignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="myvignette_files/header-attrs-2.3/header-attrs.js"></script><script src="myvignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Is there any increase in discussion related to data privacy in the danish parliament?</h1>
                         <h4 class="author">Peyman Kor</h4>
             
-            <h4 class="date">2020-07-19</h4>
+            <h4 class="date">2020-07-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Peymankor/danparcorpR/blob/master/vignettes/myvignette.Rmd"><code>vignettes/myvignette.Rmd</code></a></small>
       <div class="hidden name"><code>myvignette.Rmd</code></div>
@@ -96,7 +96,7 @@
 <a href="#introduction" class="anchor"></a>Introduction</h2>
 <p>So in this blog I going to explore and possible answer these two questions:</p>
 <ul>
-<li><p>Is there any increase in sentiment of the members of the Danish parliament on the topics related to <em>datatilsynet</em>,<em>persondata</em>,<em>persondataloven</em>,<em>databeskyttelse</em> in the parliament discussion?</p></li>
+<li><p>Is there any increase in sentiment of the members of the Danish parliament on the topics related to <strong>datatilsynet</strong>,<strong>persondata</strong>,<strong>persondataloven</strong>,<strong>databeskyttelse</strong> in the parliament discussion?</p></li>
 <li><p>Then, which parties are more involved in the parliament about the above topics?</p></li>
 </ul>
 <p>So, let’s get started:</p>
@@ -112,7 +112,7 @@
 <span class="co">#&gt; Loading required package: remotes</span></pre></body></html></div>
 <p>The above package makes that you can install package from the github, which is the case of the <em>danparcorpR</em> package, at the moment. So having the <em>remotes</em> package, you can install <em>dancoprR</em> package as the follows:</p>
 <p>Note: Since it contains a bit of large text data inside it, installation may take a few minutes (less than 5 min usually) so just be patient until the below installation is completed :)</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)</pre></body></html></div>
 <p>Now, the package should have been installed and it is ready to use.</p>
 </div>
 <div id="libraries" class="section level2">
@@ -141,14 +141,14 @@
   <span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html">unnest_tokens</a></span>(<span class="no">word</span>, <span class="no">Tekst</span>)</pre></body></html></div>
 <p>So, after doing this, what we do is group the data with (half_year, word and Parti) and count them, using the <em>tally</em> function:</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">tidy_text_count</span> <span class="kw">&lt;-</span> <span class="no">corpus_tidy_text</span> <span class="kw">%&gt;%</span>
-  <span class="fu">group_by</span>(<span class="kw">half_year</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/pkg/lubridate/man/round_date.html">round_date</a></span>(<span class="no">Starttid</span>, <span class="st">"halfyear"</span>), <span class="no">word</span>, <span class="no">Parti</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">group_by</span>(<span class="kw">half_year</span><span class="kw">=</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/round_date.html">round_date</a></span>(<span class="no">Starttid</span>, <span class="st">"halfyear"</span>), <span class="no">word</span>, <span class="no">Parti</span>) <span class="kw">%&gt;%</span>
   <span class="fu">tally</span>()</pre></body></html></div>
 </div>
 <div id="usage-of-the-data-privacy-related-words-in-whole-parlimant-2009-2017" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage-of-the-data-privacy-related-words-in-whole-parlimant-2009-2017" class="anchor"></a>Usage of the Data Privacy Related Words in whole Parlimant, 2009-2017</h2>
 <p>So in the below, we are selecting the words we want to see how much they have been used over years. I I selected these words as the representative the <strong>Data Privacy</strong> topics, but it could be changed to any other combination:</p>
-<p><em>datatilsynet</em>,<em>persondata</em>,<em>data</em>,<em>persondataloven</em>, <em>databeskyttelse</em>,<em>datasikkerhed</em>,<em>datasikkerheden</em></p>
+<p><strong>datatilsynet</strong>,<strong>persondata</strong>,<strong>data</strong>,<strong>persondataloven</strong>, <strong>databeskyttelse</strong>,<strong>datasikkerhed</strong>,<strong>datasikkerheden</strong></p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">whole_parlimanet</span> <span class="kw">&lt;-</span> <span class="no">tidy_text_count</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">word</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"datatilsynet"</span>,<span class="st">"persondata"</span>,<span class="st">"data"</span>,
                      <span class="st">"persondataloven"</span>,<span class="st">"databeskyttelse"</span>,

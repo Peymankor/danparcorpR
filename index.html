@@ -101,16 +101,17 @@
 <li><p>Tekst - The transcript of speech by the speaker</p></li>
 </ul>
 <p><strong>Source:</strong> <a href="https://repository.clarin.dk/repository/xmlui/handle/20.500.12115/8">The Danish Parliament Corpus 2009 - 2017, v1</a></p>
-<p><strong>Important Note</strong></p>
+<p><strong>Important Note - 1</strong></p>
 <p>In the Navn column you may see the empyt cell (""). These empty cells are mostly when the Rolle column is <em>formand</em> or <em>minister</em>, so the original data included the empty cell.</p>
 <p>In the Parti column, the original data removed party section when the Rolle is <em>formand</em> or <em>minister</em> but in our case, we need the data for every cell. In this case, the “NA” was replaced.</p>
 <p>So in summary, the empty cell ("“) is when the orginal data had”" while “NA” was replaced by the package author in the case original data removed the parti name for speaker.</p>
+<p><strong>Important Note - 2</strong> I wrote one full article about “Getting Started” with this package, with more details than below examples. The article is <a href="https://peymankor.github.io/danparcorpR/articles/myvignette.html">here</a></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the development version from <a href="https://github.com/Peymankor/danparcorpR">Github</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("remotes")</span>
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)</pre></div>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)</pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
@@ -119,7 +120,7 @@
 <div class="sourceCode" id="cb2"><pre class="r">
 <span class="co"># install the package from github</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"Peymankor/danparcorpR"</span>)
 <span class="co">#</span>
 
 <span class="co"># load the library and tidyverse library</span>
