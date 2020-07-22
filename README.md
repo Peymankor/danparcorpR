@@ -44,6 +44,7 @@ In the Parti column, the original data removed party section when the Rolle is *
 So in summary, the empty cell ("") is when the orginal data had "" while "NA" was replaced by the package author in the case original data removed the parti name for speaker.
 
 **Important Note - 2**
+
 I wrote one full article about "Getting Started" with this package, with more details than below examples. The article is [here](https://peymankor.github.io/danparcorpR/articles/myvignette.html)
 
 ## Installation
