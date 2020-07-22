@@ -265,3 +265,5 @@ corpus_2010_DF_tidy %>%
                  max.words = 50, random.order=FALSE, rot.per=0.35,
                  colors=brewer.pal(8, "Dark2")))
 
+
+#pkgdown::deploy_to_branch()
